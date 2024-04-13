@@ -103,6 +103,7 @@ void loop(){
     tag_sequence();
     exit(0);
   }else{
+    checkHit();
     //Serial.print(totalDistTraveled);
     //Serial.print("\n");
     /*
@@ -297,7 +298,7 @@ void tag_sequence(){
 
 ///// WATER SENSOR /////
 void checkHit(){
-  if(ws1.readSensor() > 500){
+  if(ws1.readSensor() > 300){
     UGV_WAS_TAGGED = true;
   }
 }

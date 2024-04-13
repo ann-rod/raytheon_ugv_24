@@ -79,7 +79,7 @@ float LEG_2_DISTANCE = 0.0;
 float LEG_3_DISTANCE = 0.0;
 float totalDistTraveled = 0.0; // distance counter
 float deltaT;   // in milliseconds
-float UGV_POWER = 18.00;
+float UGV_POWER = 18.40;
 
 bool UGV_WAS_TAGGED = false;
 
@@ -112,7 +112,7 @@ void loop(){
     // updates
     updateTime(); // update time vars and deltaT
     totalDistTraveled += enc_speed * deltaT; //update distance traveled
-    
+    checkHit();
     /*
     //// GYROSCOPE START
     if(millis()%1000==0){
@@ -270,7 +270,10 @@ void tag_sequence(){
 
 ///// WATER SENSOR /////
 void checkHit(){
-  if(ws1.readSensor() > 500){
+  if(ws1.readSensor() > 300){
     UGV_WAS_TAGGED = true;
+    //Serial.print("UGV_WAS_TAGGED: ");
+    //Serial.print(UGV_WAS_TAGGED);
+    //Serial.print("\n");
   }
 }
