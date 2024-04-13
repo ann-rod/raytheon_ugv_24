@@ -18,7 +18,7 @@ Motor motors[4] = {Motor(MOTOR_FL, false),Motor(MOTOR_FR, true),\
 
 
 //// ENCODER START
-#define ENCODER_FR 19 // FR =18, FL = 19
+#define ENCODER_FR 19 // FR =19, FL = 18
 double wheelDiameter = 0.128; // wheel diam. in meters
 double stepsPerRotation = 20.0; // num. slots in encoder wheel
 float conversionFactor = wheelDiameter*1.09361*PI; // convert rot/s to yard/s
@@ -55,9 +55,10 @@ Watersensor ws1 = Watersensor(sensorPin,7); //name water sensor
 //// WATERSENSOR END
 
 //// GYROSCOPE START
+/*
 Gyroscope gyro;
 float gyro_forward_pitch;
-float curr_pitch;
+float curr_pitch;*/
 float GYRO_TOL = 10.00;
 //// GYROSCOPE END
 
@@ -70,17 +71,15 @@ float G = 783.99;
 
 // time vars
 float prevTime; // in milliseconds
-//float deltaT;   // in milliseconds
 float currTime; // IN SECONDS
 
 /////// PATH CONSTANTS ///////
-float LEG_1_DISTANCE = 10.0; // in YARDS
+float LEG_1_DISTANCE = 45.0; // in YARDS
 float LEG_2_DISTANCE = 0.0;
 float LEG_3_DISTANCE = 0.0;
-//float totalDistTraveled = 0.0; // distance counter
 float totalDistTraveled = 0.0; // distance counter
 float deltaT;   // in milliseconds
-float UGV_POWER = 20.00;
+float UGV_POWER = 18.00;
 
 bool UGV_WAS_TAGGED = false;
 
@@ -92,7 +91,6 @@ void setup() {
   currTime = millis(); // init time
   init_motors();
   init_encoder();
-  gyro.begin();
   //gyro.setupGyroscope(); // Initialize the gyroscope
   //gyro_forward_pitch = gyro.getPitch();
 }
@@ -104,66 +102,27 @@ void loop(){
     tag_sequence();
     exit(0);
   }else{
-    checkHit();
-    //Serial.print(totalDistTraveled);
-    //Serial.print("\n");
-    /*
+
     if(totalDistTraveled < LEG_1_DISTANCE){
       ugv_forward(UGV_POWER);
-      //Serial.print("in leg 1\n");
       //goStraight(UGV_POWER, GYRO_TOL);
-      //Serial.print("Est. Dist. Traveled:");
-      //Serial.print(totalDistTraveled);
-      //Serial.print("yards\n");
-      //Serial.print("Speed: ");
-      //Serial.print(enc_speed);
-      //Serial.print(" yd/sec\n");
     }else{
       ugv_stop();
-    }*/
-  // updates
-  updateTime(); // update time vars and deltaT
-  totalDistTraveled += enc_speed * deltaT; //update distance traveled
-  
-  
-  //// GYROSCOPE START
-  
-    gyro.readGyroData();
-    // Get gyro X, Y, and Z values
-    int16_t gyroX = gyro.getX();
-    int16_t gyroY = gyro.getY();
-    int16_t gyroZ = gyro.getZ();
-
-    // Print gyro data to Serial Monitor
-    Serial.print("Gyro X: ");
-    Serial.print(gyroX);
-    Serial.print(", Gyro Y: ");
-    Serial.print(gyroY);
-    Serial.print(", Gyro Z: ");
-    Serial.println(gyroZ);
-  
-  
-  
-  //// GYROSCOPE END
-
-  //// WATERSENSOR START
-    //get the reading from the function below and print it
-  /*
-	float readSensorValue=ws1.readSensor();
-  Serial.print("Water level: "); 
-	Serial.println(ws1.readSensor());
-
-	delay(1000);*/
-  //// WATERSENSOR END
-
-  
-  //// GYROSCOPE START ////
-  //gyro.readGyroscopeData();
-  //gyro.calculateAngles();
-  //delay(1000); // Adjust delay as needed
-  //// GYROSCOPE END ////
-  //Serial.print("passed gyro\n");
+    }
+    // updates
+    updateTime(); // update time vars and deltaT
+    totalDistTraveled += enc_speed * deltaT; //update distance traveled
+    
+    /*
+    //// GYROSCOPE START
+    if(millis()%1000==0){
+      curr_pitch = gyro.getPitch();
+    }
+    */
+    
+    //// GYROSCOPE END
   }
+
 }
 
 //// MOTOR FUNCTIONS ////
