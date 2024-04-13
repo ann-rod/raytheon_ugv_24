@@ -80,7 +80,7 @@ float LEG_3_DISTANCE = 0.0;
 //float totalDistTraveled = 0.0; // distance counter
 float totalDistTraveled = 0.0; // distance counter
 float deltaT;   // in milliseconds
-float UGV_POWER = 20.00;
+float UGV_POWER = 18.40;
 
 bool UGV_WAS_TAGGED = false;
 
