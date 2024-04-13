@@ -80,7 +80,7 @@ float LEG_3_DISTANCE = 0.0;
 //float totalDistTraveled = 0.0; // distance counter
 float totalDistTraveled = 0.0; // distance counter
 float deltaT;   // in milliseconds
-float UGV_POWER = 20.00;
+float UGV_POWER = 18.40;
 
 bool UGV_WAS_TAGGED = false;
 
@@ -103,6 +103,7 @@ void loop(){
     tag_sequence();
     exit(0);
   }else{
+    checkHit();
     //Serial.print(totalDistTraveled);
     //Serial.print("\n");
     /*
@@ -297,7 +298,7 @@ void tag_sequence(){
 
 ///// WATER SENSOR /////
 void checkHit(){
-  if(ws1.readSensor() > 500){
+  if(ws1.readSensor() > 300){
     UGV_WAS_TAGGED = true;
   }
 }
