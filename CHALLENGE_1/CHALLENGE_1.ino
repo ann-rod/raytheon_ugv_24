@@ -99,6 +99,7 @@ void loop(){
   //Serial.print("in loop\n");
   
   if(UGV_WAS_TAGGED){
+    ugv_stop();
     tag_sequence();
     exit(0);
   }else{
